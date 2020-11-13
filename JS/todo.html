@@ -4,22 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
     <title>Todos</title>
 </head>
 
 <body>
-    <header>
-        <h1>Todos</h1>
-    </header>
     <main>
-        <input type="text" class="new-item" placeholder="Input your new todo here...">
-        <button class="add-btn">+</button>
+        <header>
+            <h1>Todos</h1>
+        </header>
+        <form>
+            <input type="text" class="new-item" placeholder="Input your new todo here...">
+            <button class="add-btn" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+        </form>
+        <section class="filter">
+            <input type="radio" name="option" value="all" checked>All</label>
+            <input type="radio" name="option" value="active">Active</label>
+            <input type="radio" name="option" value="completed">Completed</label>
+        </section>
         <ul class="todo-list">
-        </ul>
-        <ul class="filter">
-            <button class="filter-btn">All</button>
-            <button class="filter-btn">Active</button>
-            <button class="filter-btn">Finished</button>
         </ul>
     </main>
     <script src="script.js"></script>
