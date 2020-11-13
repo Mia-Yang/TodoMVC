@@ -8,32 +8,31 @@ addBtn.addEventListener('click', addItem);
 filter.addEventListener('click', filterTodo);
 clear.addEventListener('click', clearAll);
 
-
 function addItem(e) {
     e.preventDefault();
-    var itemContent = input.value;
+    var itemContent = input.value.trim();
     input.value = "";
-    var item = document.createElement("li");
-    var itemText = document.createElement("span");
-    var checkbox = document.createElement("input");
-    checkbox.setAttribute('type', 'checkbox');
-    checkbox.onclick = finished;
-    var trash = document.createElement("button");
+    if (itemContent !== null && itemContent !== "" && itemContent !== undefined) {
+        var item = document.createElement("li");
+        var itemText = document.createElement("span");
+        var checkbox = document.createElement("input");
+        checkbox.setAttribute('type', 'checkbox');
+        checkbox.onclick = finished;
+        var trash = document.createElement("button");
 
-    itemText.textContent = itemContent;
-    trash.innerHTML = '<i class="fas fa-trash"></i>';
+        itemText.textContent = itemContent;
+        trash.innerHTML = '<i class="fas fa-trash"></i>';
 
-    item.appendChild(checkbox);
-    item.appendChild(itemText);
-    item.appendChild(trash);
-    list.appendChild(item);
+        item.appendChild(checkbox);
+        item.appendChild(itemText);
+        item.appendChild(trash);
+        list.appendChild(item);
 
-    trash.onclick = function() {
-        list.removeChild(item);
+        trash.onclick = function() {
+            list.removeChild(item);
+        }
     }
-
     filterTodo();
-
 }
 
 function finished(e) {
@@ -45,7 +44,6 @@ function finished(e) {
 
 function filterTodo() {
     var filterOption = getValue();
-    console.log(filterOption);
     var todos = list.children;
 
     for (todo of todos) {
