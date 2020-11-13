@@ -9,17 +9,22 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    font-family: "Poppins", sans-serif;
 }
 
 main {
     display: flex;
     flex-direction: column;
     margin-top: 150px;
+    width: 450px;
+    margin: 150px auto;
 }
 
 h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 60px;
+    color: white;
+    margin-bottom: 20px;
 }
 
 form {
@@ -32,10 +37,11 @@ form input,
     padding: 10px;
     border: none;
     outline: none;
+    margin-bottom: 20px;
 }
 
 form input {
-    width: 350px;
+    width: 100%;
 }
 
 button {
@@ -52,30 +58,60 @@ button {
     background-color: #FF52E5;
 }
 
+.operation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clear {
+    width: 70px;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+span {
+    font-size: 16px;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
 ul {
     list-style: none;
 }
 
 ul li {
+    width: 100%;
     margin: 10px 0;
+    padding: 0 0 0 10px;
     background-color: white;
-    display: flex;
     align-items: center;
-}
-
-span {
-    font-size: 16px;
 }
 
 li button {
     padding: 10px;
-    font-size: 16px;
-    background-color: yellow;
+    color: white;
+    background-color: #FF52E5;
     border: none;
     justify-self: end;
 }
 
+li button:hover {
+    color: #FF52E5;
+    background-color: white;
+}
+
 .finished {
-    text-decoration: line-through;
     opacity: 0.7;
+}
+
+.finished span {
+    text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+    zoom: 1.5;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
 }

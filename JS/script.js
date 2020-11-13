@@ -2,9 +2,11 @@ var input = document.querySelector(".new-item");
 var addBtn = document.querySelector(".add-btn");
 var list = document.querySelector(".todo-list");
 var filter = document.querySelector(".filter");
+var clear = document.querySelector(".clear")
 
 addBtn.addEventListener('click', addItem);
 filter.addEventListener('click', filterTodo);
+clear.addEventListener('click', clearAll);
 
 
 function addItem(e) {
@@ -19,7 +21,7 @@ function addItem(e) {
     var trash = document.createElement("button");
 
     itemText.textContent = itemContent;
-    trash.textContent = "x";
+    trash.innerHTML = '<i class="fas fa-trash"></i>';
 
     item.appendChild(checkbox);
     item.appendChild(itemText);
@@ -46,24 +48,23 @@ function filterTodo() {
     console.log(filterOption);
     var todos = list.children;
 
-    for (i = 0; i < todos.length; i++) {
-
+    for (todo of todos) {
         switch (filterOption) {
             case "all":
-                todos[i].style.display = "flex";
+                todo.style.display = "flex";
                 break;
             case "completed":
-                if (todos[i].classList.contains("finished")) {
-                    todos[i].style.display = "flex";
+                if (todo.classList.contains("finished")) {
+                    todo.style.display = "flex";
                 } else {
-                    todos[i].style.display = "none";
+                    todo.style.display = "none";
                 }
                 break;
             case "active":
-                if (todos[i].classList.contains("finished")) {
-                    todos[i].style.display = "none";
+                if (todo.classList.contains("finished")) {
+                    todo.style.display = "none";
                 } else {
-                    todos[i].style.display = "flex";
+                    todo.style.display = "flex";
                 }
                 break;
         }
@@ -72,12 +73,17 @@ function filterTodo() {
 
 function getValue() {
     var value;
-    var obj = document.getElementsByName("option")
-    for (var i = 0; i < obj.length; i++) { //遍历Radio 
-        if (obj[i].checked) {
-            value = obj[i].value;
+    var radios = document.getElementsByName("option");
+    for (radio of radios) {
+        if (radio.checked) {
+            value = radio.value;
         }
     }
     return value;
+}
 
+function clearAll() {
+    while (list.firstChild) {
+        list.removeChild(list.lastChild);
+    }
 }
