@@ -9,8 +9,6 @@ var listData = [];
 addBtn.addEventListener('click', addTodo);
 clear.addEventListener('click', clearAll);
 filter.addEventListener('click', filterTodo);
-checkboxs.addEventListener('click', finished);
-
 
 function addTodo(e) {
     e.preventDefault();
@@ -18,34 +16,30 @@ function addTodo(e) {
     input.value = "";
     var newTodo = {
         text: itemContent,
-        checked: "unfinished"
+        status: "unfinished"
     }
-    if (itemContent !== null && itemContent !== "" && itemContent !== undefined) {
+    if (itemContent.length !== 0) {
         listData.push(newTodo);
         filterTodo();
     }
 }
 
-function renderList(data) {
-    var html = '';
-    for (var i = 0; i < data.length; i++) {
-        html += ('<li class=' + data[i].checked + '><input type="checkbox" class="status"><span>' +
-            data[i].text + '</span><button><i class="fas fa-trash"></i></button></li>')
+function finished(i) {
+    if (listData[i].status === "unfinished") {
+        listData[i].status = "finished";
+    } else {
+        listData[i].statsus = "unfinished";
     }
-    list.innerHTML = html;
+    filterTodo();
 }
 
 function filterTodo() {
     var filterOption = getValue();
     var activeList = [];
     var completedList = [];
-    for (var i = 0; i < listData.length; i++) {
-        if (listData[i].checked == "finished") {
-            completedList.push(listData[i]);
-        } else {
-            activeList.push(listData[i]);
-        }
-    }
+
+    completedList = listData.filter(item => item.status === "finished");
+    activeList = listData.filter(item => item.status === "unfinished");
 
     switch (filterOption) {
         case "all":
@@ -60,13 +54,6 @@ function filterTodo() {
     }
 }
 
-function finished(e) {
-    var checked = e.target;
-    var data = checked.nextSibling;
-    data.checked = true;
-    filterTodo();
-}
-
 function getValue() {
     var value;
     var radios = document.getElementsByName("option");
@@ -78,7 +65,25 @@ function getValue() {
     return value;
 }
 
+function remove(i) {
+    listData.splice(i, 1);
+    filterTodo();
+}
+
 function clearAll() {
     listData = [];
     renderList(listData);
+}
+
+function renderList(data) {
+    var html = '';
+    for (var i = 0; i < data.length; i++) {
+        html +=
+            ('<li class=' +
+                data[i].status +
+                '><input type="checkbox" onchange="finished(' + i + ')" id="status"><span>' +
+                data[i].text +
+                '</span><button onclick="remove(' + i + ')"><i class="fas fa-trash"></i></button></li>')
+    }
+    list.innerHTML = html;
 }
