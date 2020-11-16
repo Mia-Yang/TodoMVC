@@ -13,6 +13,15 @@ function addItem(e) {
     var itemContent = input.value.trim();
     input.value = "";
     if (itemContent !== null && itemContent !== "" && itemContent !== undefined) {
+        //  newItem = `
+        //     <li>
+        //         <span>${itemContent}</span>
+        //         <input type="checkbox" />
+        //         <button onClick=${removeChild}>
+        //             <i class="fas fa-trash"></i>
+        //         </button>
+        //     </li>
+        // `
         var item = document.createElement("li");
         var itemText = document.createElement("span");
         var checkbox = document.createElement("input");
@@ -45,7 +54,6 @@ function finished(e) {
 function filterTodo() {
     var filterOption = getValue();
     var todos = list.children;
-
     for (todo of todos) {
         switch (filterOption) {
             case "all":
