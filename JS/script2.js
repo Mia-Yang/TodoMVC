@@ -3,12 +3,13 @@ var addBtn = document.querySelector(".add-btn");
 var list = document.querySelector(".todo-list");
 var filter = document.querySelector(".filter");
 var clear = document.querySelector(".clear");
-var checkbox = document.querySelector('input[type="checkbox"]');
+
 var listData = [];
 
 addBtn.addEventListener('click', addTodo);
 clear.addEventListener('click', clearAll);
 filter.addEventListener('click', filterTodo);
+checkboxs.addEventListener('click', finished);
 
 
 function addTodo(e) {
@@ -17,7 +18,7 @@ function addTodo(e) {
     input.value = "";
     var newTodo = {
         text: itemContent,
-        checked: false
+        checked: "unfinished"
     }
     if (itemContent !== null && itemContent !== "" && itemContent !== undefined) {
         listData.push(newTodo);
@@ -28,7 +29,7 @@ function addTodo(e) {
 function renderList(data) {
     var html = '';
     for (var i = 0; i < data.length; i++) {
-        html += ('<li><input type="checkbox"><span>' +
+        html += ('<li class=' + data[i].checked + '><input type="checkbox" class="status"><span>' +
             data[i].text + '</span><button><i class="fas fa-trash"></i></button></li>')
     }
     list.innerHTML = html;
@@ -39,7 +40,7 @@ function filterTodo() {
     var activeList = [];
     var completedList = [];
     for (var i = 0; i < listData.length; i++) {
-        if (listData[i].checked) {
+        if (listData[i].checked == "finished") {
             completedList.push(listData[i]);
         } else {
             activeList.push(listData[i]);
@@ -57,29 +58,6 @@ function filterTodo() {
             renderList(activeList);
             break;
     }
-
-    // if (filterOption === "all") {
-    //     renderList(listData);
-    // }
-    // if (filterOption === "active") {
-    //     for (var i = 0; i < listData.length; i++) {
-    //         activeList = [];
-    //         if (!listData[i].checked) {
-    //             activeList.push(listData[i]);
-    //             console.log(activeList)
-    //             renderList(activeList);
-    //         }
-    //     }
-    // }
-    // if (filterOption === "completed") {
-    //     for (var i = 0; i < listData.length; i++) {
-    //         if (listData[i].checked) {
-    //             completedList = [];
-    //             completedList.push(listData[i]);
-    //             renderList(completedList);
-    //         }
-    //     }
-    // }
 }
 
 function finished(e) {
