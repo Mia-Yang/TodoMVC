@@ -28,7 +28,7 @@ function finished(i) {
     if (listData[i].status === "unfinished") {
         listData[i].status = "finished";
     } else {
-        listData[i].statsus = "unfinished";
+        listData[i].status = "unfinished";
     }
     filterTodo();
 }
@@ -79,11 +79,14 @@ function renderList(data) {
     var html = '';
     for (var i = 0; i < data.length; i++) {
         html +=
-            ('<li class=' +
-                data[i].status +
-                '><input type="checkbox" onchange="finished(' + i + ')" id="status"><span>' +
-                data[i].text +
-                '</span><button onclick="remove(' + i + ')"><i class="fas fa-trash"></i></button></li>')
+            '<li class=' +
+            data[i].status +
+            // '><input type="checkbox" onclick="finished(' + i +
+            // ')" id="status"></label ><span>' +
+            '><button id="status" onclick="finished(' + i + ')" class="btn-' +
+            data[i].status + '"><a>&#10004</a></button><span>' +
+            data[i].text +
+            '</span><button onclick="remove(' + i + ')" class="del"><i class="fas fa-trash"></i></button></li>';
     }
     list.innerHTML = html;
 }
