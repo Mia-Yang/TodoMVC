@@ -126,34 +126,7 @@
     input[type="checkbox"] {
         zoom: 1.5;
         cursor: pointer;
-        /* visibility: hidden; */
     }
-    
-    #status {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        background: #FF52E5;
-        padding: 0;
-        border: none;
-    }
-    
-    .btn-finished {
-        color: white;
-    }
-    
-    .btn-unfinished {
-        color: #FF52E5;
-    }
-    /* #status a {
-        display: none;
-        text-align: center;
-        color: white;
-    }
-    
-    #status a:hover {
-        display: block;
-    } */
     
     input[type="radio"] {
         margin-right: 5px;

@@ -4,7 +4,7 @@ var list = document.querySelector(".todo-list");
 var filter = document.querySelector(".filter");
 var clear = document.querySelector(".clear");
 
-var listData = [];
+var allList = [];
 
 addBtn.addEventListener('click', addTodo);
 clear.addEventListener('click', clearAll);
@@ -16,34 +16,33 @@ function addTodo(e) {
     input.value = "";
     var newTodo = {
         text: itemContent,
-        status: "unfinished"
+        status: "unfinished",
+        id: allList.length,
     }
-    if (itemContent.length !== 0) {
-        listData.push(newTodo);
+    if (itemContent.length) {
+        allList.push(newTodo);
         filterTodo();
     }
 }
 
-function finished(i) {
-    if (listData[i].status === "unfinished") {
-        listData[i].status = "finished";
+function changeStatus(id) {
+    if (allList[id].status === "unfinished") {
+        allList[id].status = "finished";
     } else {
-        listData[i].status = "unfinished";
+        allList[id].status = "unfinished";
     }
     filterTodo();
 }
 
 function filterTodo() {
-    var filterOption = getValue();
+    var filterTag = getFilterTag();
     var activeList = [];
     var completedList = [];
-
-    completedList = listData.filter(item => item.status === "finished");
-    activeList = listData.filter(item => item.status === "unfinished");
-
-    switch (filterOption) {
+    completedList = allList.filter(item => item.status === "finished");
+    activeList = allList.filter(item => item.status === "unfinished");
+    switch (filterTag) {
         case "all":
-            renderList(listData);
+            renderList(allList);
             break;
         case "completed":
             renderList(completedList);
@@ -54,9 +53,9 @@ function filterTodo() {
     }
 }
 
-function getValue() {
+function getFilterTag() {
     var value;
-    var radios = document.getElementsByName("option");
+    var radios = document.getElementsByName("filter-option");
     for (radio of radios) {
         if (radio.checked) {
             value = radio.value;
@@ -65,28 +64,32 @@ function getValue() {
     return value;
 }
 
-function remove(i) {
-    listData.splice(i, 1);
+function removeTodo(id) {
+    allList.splice(id, 1);
+    updateId(allList);
     filterTodo();
 }
 
+function updateId() {
+    for (var i = 0; i < allList.length; i++) {
+        allList[i].id = i;
+    }
+}
+
 function clearAll() {
-    listData = [];
-    renderList(listData);
+    allList = [];
+    renderList(allList);
 }
 
 function renderList(data) {
     var html = '';
     for (var i = 0; i < data.length; i++) {
+        var checkedOrNot = data[i].status === "finished" ? "checked" : "";
         html +=
-            '<li class=' +
-            data[i].status +
-            // '><input type="checkbox" onclick="finished(' + i +
-            // ')" id="status"></label ><span>' +
-            '><button id="status" onclick="finished(' + i + ')" class="btn-' +
-            data[i].status + '"><a>&#10004</a></button><span>' +
-            data[i].text +
-            '</span><button onclick="remove(' + i + ')" class="del"><i class="fas fa-trash"></i></button></li>';
+            '<li class=' + data[i].status +
+            '><input type="checkbox" onclick="changeStatus(' + data[i].id + ')"' + checkedOrNot +
+            '><span>' + data[i].text +
+            '</span><button onclick="removeTodo(' + data[i].id + ')" class="del"><i class="fas fa-trash"></i></button></li>';
     }
     list.innerHTML = html;
 }
