@@ -108,10 +108,11 @@ const renderList = (data) => {
         let item = data[i];
         let checkedOrNot = item.status === "finished" ? "checked" : "";
         listHtml +=
-            '<li class="' + item.status +
-            '"><input type="checkbox" onclick="changeStatus(' + item.id + ')"' + checkedOrNot +
-            '><span>' + item.text +
-            '</span><button onclick="removeTodo(' + item.id + ')" class="del"><i class="fas fa-trash"></i></button></li>';
+            `<li class=" ${item.status}">
+            <input type="checkbox" onclick="changeStatus(${item.id})" ${checkedOrNot}> 
+            <span> ${item.text} </span>
+            <button onclick="removeTodo( ${item.id} )" class="del">
+            <i class="fas fa-trash"></i></button></li>`;
     }
     list.innerHTML = listHtml;
 }
