@@ -17,7 +17,7 @@ function addItem(e) {
         var itemText = document.createElement("span");
         var checkbox = document.createElement("input");
         checkbox.setAttribute('type', 'checkbox');
-        checkbox.onclick = finished;
+        checkbox.onclick = changeStatus;
         var trash = document.createElement("button");
 
         itemText.textContent = itemContent;
@@ -35,7 +35,7 @@ function addItem(e) {
     filterTodo();
 }
 
-function finished(e) {
+function changeStatus(e) {
     var checked = e.target;
     var todo = checked.parentElement;
     todo.classList.toggle("finished");
@@ -43,7 +43,7 @@ function finished(e) {
 }
 
 function filterTodo() {
-    var filterOption = getValue();
+    var filterOption = getFilterTag();
     var todos = list.children;
     for (todo of todos) {
         switch (filterOption) {
@@ -68,9 +68,9 @@ function filterTodo() {
     }
 }
 
-function getValue() {
+function getFilterTag() {
     var value;
-    var radios = document.getElementsByName("option");
+    var radios = document.getElementsByName("filter-option");
     for (radio of radios) {
         if (radio.checked) {
             value = radio.value;

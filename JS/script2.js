@@ -36,10 +36,13 @@ function changeStatus(id) {
 
 function filterTodo() {
     var filterTag = getFilterTag();
+
     var activeList = [];
     var completedList = [];
+
     completedList = allList.filter(item => item.status === "finished");
     activeList = allList.filter(item => item.status === "unfinished");
+
     switch (filterTag) {
         case "all":
             renderList(allList);
@@ -82,14 +85,14 @@ function clearAll() {
 }
 
 function renderList(data) {
-    var html = '';
+    var listHtml = '';
     for (var i = 0; i < data.length; i++) {
         var checkedOrNot = data[i].status === "finished" ? "checked" : "";
-        html +=
+        listHtml +=
             '<li class=' + data[i].status +
             '><input type="checkbox" onclick="changeStatus(' + data[i].id + ')"' + checkedOrNot +
             '><span>' + data[i].text +
             '</span><button onclick="removeTodo(' + data[i].id + ')" class="del"><i class="fas fa-trash"></i></button></li>';
     }
-    list.innerHTML = html;
+    list.innerHTML = listHtml;
 }
